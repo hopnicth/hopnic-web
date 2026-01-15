@@ -1,14 +1,35 @@
-version: '3.8'
+version: "3.8"
+
+# ================================
+# HOPNIC Website - Docker Compose
+# สำหรับ DigitalOcean Docker Droplet
+# ================================
 
 services:
+  # Main Application
   app:
-    image: node:20-alpine
-    working_dir: /app
+    # Build จาก Dockerfile
+    build: .
+
+    # ชื่อ Container
+    container_name: hopnic-website
+
+    # Auto restart เมื่อ Droplet reboot หรือ container crash
+    restart: always
+
+    # Port Mapping
+    # 80:3000 = Port 80 (HTTP) -> Container Port 3000
+    # ถ้าใช้ Nginx ให้เปลี่ยนเป็น "3000:3000"
     ports:
-      - "5173:5173"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    command: npm run dev -- --host
+      - "80:3000"
+
+    # Environment Variables
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+
+      # ORIGIN: ใส่ Domain ของคุณ
+      # ก่อนติดตั้ง SSL: http://hopnic.co.th
+      # หลังติดตั้ง SSL: https://hopnic.co.th
+      - ORIGIN=https://hopnic.co.th

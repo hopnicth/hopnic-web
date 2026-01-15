@@ -1,2 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script lang="ts">
+	import HopHero from '$lib/components/business/HopHero.svelte';
+</script>
+
+<svelte:head>
+	<title>Home | HOPNIC</title>
+	<meta name="description" content="Corporate Website & Back-office System" />
+</svelte:head>
+
+<HopHero />
