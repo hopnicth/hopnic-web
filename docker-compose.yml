@@ -65,13 +65,16 @@ services:
       # ORIGIN: ใส่ Domain ของคุณ
       # ก่อนติดตั้ง SSL: http://hopnic.co.th
       # หลังติดตั้ง SSL: https://hopnic.co.th
-      - ORIGIN=https://hopnic.co.th
+      - ORIGIN=${ORIGIN:-https://hopnic.co.th}
 
-      # Database Connection
-      - DATABASE_URL=${DATABASE_URL:-postgresql://hopnic:hopnic_password@db:5432/hopnic_db}
+      # Database Connection (ใช้ 'db' เป็น hostname ใน Docker network)
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-hopnic}:${POSTGRES_PASSWORD:-hopnic_password}@db:5432/${POSTGRES_DB:-hopnic_db}
 
       # Admin Authentication
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-change_me_in_production}
+
+      # Mock Mode (false = ใช้ database จริง)
+      - USE_MOCK_DATA=${USE_MOCK_DATA:-false}
 
     # Volume for uploaded files (persistent storage)
     volumes:
