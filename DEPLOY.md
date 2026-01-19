@@ -54,6 +54,7 @@ USE_MOCK_DATA=false
 POSTGRES_USER=hopnic
 POSTGRES_PASSWORD=CHANGE_ME_STRONG_PASSWORD
 POSTGRES_DB=hopnic_db
+DATABASE_URL="postgresql://hopnic:CHANGE_ME_STRONG_PASSWORD@db:5432/hopnic_db"
 ADMIN_PASSWORD=CHANGE_ME_ADMIN_PASSWORD
 NODE_ENV=production
 PORT=3000
@@ -181,4 +182,3 @@ docker exec hopnic-db pg_dump -U hopnic hopnic_db > backup.sql
 
 **Time:** ~20 minutes  
 **Status:** ✅ READY
-
