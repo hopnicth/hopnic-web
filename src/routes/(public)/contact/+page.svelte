@@ -58,7 +58,7 @@
 					<div class="text-center mb-12">
 						<h2 class="text-3xl font-bold text-neutral-900 mb-4">Need Immediate Assistance?</h2>
 						<p class="text-neutral-600 text-lg max-w-2xl mx-auto leading-relaxed">
-							Our team is available Monday - Saturday, 08:30 - 17:30.
+							Our team is available Monday - Friday, 09:00 - 17:00.
 							For urgent inquiries, please call our headquarters directly.
 						</p>
 					</div>
@@ -75,8 +75,8 @@
 							{/if}
 							<div>
 								<h3 class="font-bold text-neutral-900 mb-2">Working Hours</h3>
-								<p class="text-neutral-600 text-sm">Monday - Saturday</p>
-								<p class="text-neutral-900 font-semibold">08:30 - 17:30</p>
+								<p class="text-neutral-600 text-sm">Monday - Friday</p>
+								<p class="text-neutral-900 font-semibold">09:00 - 17:00</p>
 							</div>
 						</div>
 
@@ -92,7 +92,7 @@
 							<div>
 								<h3 class="font-bold text-neutral-900 mb-2">Email</h3>
 								<a href="mailto:info@hopnic.com" class="text-blue-600 hover:text-blue-700 font-semibold">
-									info@hopnic.com
+									p.chakkapan@hopnic.co.th
 								</a>
 							</div>
 						</div>

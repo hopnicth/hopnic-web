@@ -60,7 +60,7 @@
 					href="/about"
 					class="px-8 py-4 bg-white text-neutral-900 font-bold rounded-full hover:bg-neutral-100 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
 				>
-					เรียนรู้เพิ่มเติม
+					ผลงานตัวอย่าง
 				</a>
 				<a
 					href="/contact"

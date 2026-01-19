@@ -1,0 +1,46 @@
+// ================================
+// HOPNIC Website - Prisma Schema
+// Phase 2: Portfolio Management
+// ================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ================================
+// Models
+// ================================
+
+model Project {
+  id          Int            @id @default(autoincrement())
+  title       String
+  subHeader   String
+  bodyContent String         @db.Text
+  tags        String[]       // Array of tags: Design, ME, Automation, PLC & Control
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  // Relations
+  images      ProjectImage[]
+
+  @@map("projects")
+}
+
+model ProjectImage {
+  id            Int      @id @default(autoincrement())
+  imageUrl      String
+  sequenceOrder Int      @default(0)
+  isCover       Boolean  @default(false)
+  projectId     Int
+
+  // Relations
+  project       Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("project_images")
+  @@index([projectId])
+}

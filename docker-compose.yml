@@ -3,9 +3,37 @@ version: "3.8"
 # ================================
 # HOPNIC Website - Docker Compose
 # สำหรับ DigitalOcean Docker Droplet
+# Phase 2: Added PostgreSQL Database
 # ================================
 
 services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: hopnic-db
+    restart: always
+
+    # Port Mapping
+    ports:
+      - "5432:5432"
+
+    # Environment Variables
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-hopnic}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-hopnic_password}
+      POSTGRES_DB: ${POSTGRES_DB:-hopnic_db}
+
+    # Volume for data persistence
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+    # Health check
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-hopnic}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # Main Application
   app:
     # Build จาก Dockerfile
@@ -21,7 +49,12 @@ services:
     # 80:3000 = Port 80 (HTTP) -> Container Port 3000
     # ถ้าใช้ Nginx ให้เปลี่ยนเป็น "3000:3000"
     ports:
-      - "80:3000"
+      - "3000:3000"
+
+    # Depends on database
+    depends_on:
+      db:
+        condition: service_healthy
 
     # Environment Variables
     environment:
@@ -33,3 +66,20 @@ services:
       # ก่อนติดตั้ง SSL: http://hopnic.co.th
       # หลังติดตั้ง SSL: https://hopnic.co.th
       - ORIGIN=https://hopnic.co.th
+
+      # Database Connection
+      - DATABASE_URL=${DATABASE_URL:-postgresql://hopnic:hopnic_password@db:5432/hopnic_db}
+
+      # Admin Authentication
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-change_me_in_production}
+
+    # Volume for uploaded files (persistent storage)
+    volumes:
+      - uploads-data:/app/uploads
+
+# Named Volumes
+volumes:
+  db-data:
+    driver: local
+  uploads-data:
+    driver: local
